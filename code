@@ -1,0 +1,59 @@
+import string
+import random
+
+chars = string.ascii_letters + string.punctuation + string.digits
+chars = list(chars)
+key = chars.copy()
+random.shuffle(key)
+
+paswords = {}
+print('-----hello user this is the password manager-----')
+Continue = True
+print('list of services we offer : /'
+      'create a new pasword : new /'
+      'update a password : update /'
+      'delete a password : delete /'
+      'get a password : get /'
+      'quit the programme : quit')
+while Continue :
+
+    q = input('what do you want to do today : ').lower()
+
+    if q == 'new':
+        site = input('what account is the password for : ')
+        pasword = input('what is the password you are willing to create : ')
+        enc_ps = ''
+        for char in pasword : #here we are encryptin the password that the user gave us
+            index = chars.index(char)
+            enc_ps += key[index]
+        paswords.update({site : enc_ps})
+        print('the operation went well')
+
+    if q == 'update':
+        site = input('what account do you wnat to update : ')
+        pasword = input('what is the new password : ')
+        enc_ps = '' 
+        for char in pasword : #here we are encryptin the password that the user gave us
+            index = chars.index(char)
+            enc_ps += key[index]
+        paswords.update({site : enc_ps})
+        print('the operation went well')
+
+    if q == 'delete':
+        site = input('what account do you want to delete its password : ')
+        paswords.pop(site)
+        print('the operation went well')
+        print('the password has been deleted')
+
+    if q == 'get':
+        site = input('what account do you want to get its password : ')
+        n = paswords.get(site)
+        dec_ps = ''
+        for char in n : # here we are decryptin the existing password so we can return it to the user
+            index = key.index(char)
+            dec_ps += chars[index]
+        print('your password is : ',dec_ps)
+
+    if q == 'quit':
+        print('thakns for using our programme ')
+        Continue = False
